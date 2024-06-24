@@ -1,5 +1,9 @@
 /Content/DreamscapeSeries/
-
+/Content/Characters
+/Content/ThirdPerson
+/Content/levelPrototyping
+/Content/__ExternalActors__
+/Content/__ExternalObjects__
 
 # Visual Studio 2015 user specific files
 .vs/
