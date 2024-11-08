@@ -8,7 +8,13 @@ public class UESourceCodeStu : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
+			"ModularGameplay",
+			"CommonLoadingScreen",
+
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

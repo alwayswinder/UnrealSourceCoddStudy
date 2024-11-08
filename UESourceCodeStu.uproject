@@ -50,6 +50,10 @@
 		{
 			"Name": "PCGBiomeSample",
 			"Enabled": true
+		},
+		{
+			"Name": "ModularGameplay",
+			"Enabled": true
 		}
 	]
 }
