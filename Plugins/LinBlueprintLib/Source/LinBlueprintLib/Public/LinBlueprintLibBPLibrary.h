@@ -48,5 +48,7 @@ class ULinBlueprintLibBPLibrary : public UBlueprintFunctionLibrary
  		*(bool*)Z_Param__Result = Generic_AddRowDT(AAddr, Property, DT, NewRowName);
  		P_NATIVE_END;
  	}
-
+	
+	UFUNCTION(BlueprintCallable, Category = "WorldTools")
+	static TArray<FString> GetChangedList(TArray<FString> InFileNames);
 };

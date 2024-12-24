@@ -39,6 +39,8 @@ public class LinBlueprintLib : ModuleRules
 				"Slate",
 				"SlateCore",
 				"UnrealEd",
+				"SourceControlWindows",
+				"SourceControl",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
