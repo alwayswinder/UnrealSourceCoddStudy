@@ -49,6 +49,8 @@ class ULinBlueprintLibBPLibrary : public UBlueprintFunctionLibrary
  		P_NATIVE_END;
  	}
 	
-	UFUNCTION(BlueprintCallable, Category = "WorldTools")
-	static TArray<FString> GetChangedList();
+	UFUNCTION(BlueprintCallable, Category = "SourceControlExtren")
+	static TArray<FString> GetChangedListLabels();
+	UFUNCTION(BlueprintCallable, Category = "SourceControlExtren")
+	static FString GetUserName();
 };
