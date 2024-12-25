@@ -41,6 +41,7 @@ public class LinBlueprintLib : ModuleRules
 				"UnrealEd",
 				"SourceControlWindows",
 				"SourceControl",
+				"AssetDefinition",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

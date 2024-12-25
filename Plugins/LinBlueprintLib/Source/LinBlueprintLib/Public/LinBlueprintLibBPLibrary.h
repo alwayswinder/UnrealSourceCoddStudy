@@ -50,5 +50,5 @@ class ULinBlueprintLibBPLibrary : public UBlueprintFunctionLibrary
  	}
 	
 	UFUNCTION(BlueprintCallable, Category = "WorldTools")
-	static TArray<FString> GetChangedList(TArray<FString> InFileNames);
+	static TArray<FString> GetChangedList();
 };
