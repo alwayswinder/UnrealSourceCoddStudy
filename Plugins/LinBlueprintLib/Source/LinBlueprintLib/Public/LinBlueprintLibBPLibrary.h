@@ -50,7 +50,11 @@ class ULinBlueprintLibBPLibrary : public UBlueprintFunctionLibrary
  	}
 	
 	UFUNCTION(BlueprintCallable, Category = "SourceControlExtren")
+    static TArray<FString> GetChangedListUObjectName();
+	UFUNCTION(BlueprintCallable, Category = "SourceControlExtren")
 	static TArray<FString> GetChangedListLabels();
 	UFUNCTION(BlueprintCallable, Category = "SourceControlExtren")
 	static FString GetUserName();
+	UFUNCTION(BlueprintCallable, Category = "SourceControlExtren")
+	static FString GetWorldObjectFileName(UObject* LevelObject);
 };

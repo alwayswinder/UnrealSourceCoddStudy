@@ -135,6 +135,41 @@ bool ULinBlueprintLibBPLibrary::Generic_AddRowDT(void* Target, FProperty* Pro, U
  	return true;
 }
 
+TArray<FString> ULinBlueprintLibBPLibrary::GetChangedListUObjectName()
+{
+	FEditorFileUtils::SaveCurrentLevel();
+	
+	TSharedRef<FUpdatePendingChangelistsStatus, ESPMode::ThreadSafe> UpdatePendingChangelistsOperation = ISourceControlOperation::Create<FUpdatePendingChangelistsStatus>();
+	UpdatePendingChangelistsOperation->SetUpdateAllChangelists(true);
+	UpdatePendingChangelistsOperation->SetUpdateFilesStates(true);
+	UpdatePendingChangelistsOperation->SetUpdateShelvedFilesStates(true);
+
+	ISourceControlProvider& SourceControlProvider = ISourceControlModule::Get().GetProvider();
+	SourceControlProvider.Execute(UpdatePendingChangelistsOperation, EConcurrency::Synchronous);
+	
+	TArray<FSourceControlChangelistRef> Changelists = SourceControlProvider.GetChangelists(EStateCacheUsage::Use);
+	TArray<FSourceControlChangelistStateRef> ChangelistsStates;
+	SourceControlProvider.GetState(Changelists, ChangelistsStates, EStateCacheUsage::Use);
+	
+	TArray<FString> ObjectNames;
+
+	for (const TSharedRef<ISourceControlChangelistState>& ChangelistState : ChangelistsStates)
+	{
+		for (const TSharedRef<ISourceControlState>& FileState : ChangelistState->GetFilesStates())
+		{
+			FSourceControlAssetDataCache& AssetDataCache = ISourceControlModule::Get().GetAssetDataCache();
+			FAssetDataArrayPtr Assets;
+			AssetDataCache.GetAssetDataArray(FileState, Assets);
+			if(Assets->Num() > 0)
+			{
+				FAssetData AssetData = (*Assets)[0];
+				ObjectNames.Add(AssetData.AssetName.ToString());
+			}
+		}
+	}
+	return ObjectNames;
+}
+
 TArray<FString> ULinBlueprintLibBPLibrary::GetChangedListLabels()
 {
 	FEditorFileUtils::SaveCurrentLevel();
@@ -186,7 +221,6 @@ TArray<FString> ULinBlueprintLibBPLibrary::GetChangedListLabels()
 			RefreshAssetInformationInternal(Assets.IsValid() ? *Assets : NoAssets, Item->GetFilename(), AssetNameStr);
 			ActorNames.Add(AssetNameStr);
 		}
-		//States[0]->GetHistoryItem()
 	}
 	return ActorNames;
 }
@@ -194,5 +228,10 @@ TArray<FString> ULinBlueprintLibBPLibrary::GetChangedListLabels()
 FString ULinBlueprintLibBPLibrary::GetUserName()
 {
 	return FPaths::GameUserDeveloperFolderName();
+}
+
+FString ULinBlueprintLibBPLibrary::GetWorldObjectFileName(UObject* LevelObject)
+{
+	return FEditorFileUtils::GetFilename(LevelObject);
 }
 
